@@ -1,324 +1,322 @@
-说明
-=====
+illustrate
+===========
 
-首先感谢大家购买芯驿电子科技（上海）有限公司出品的Versal的开发板！
-您对我们和我们产品的支持和信任,给我们增添了永往直前的信心和勇气。
+First of all, thank you for purchasing the Versal development board produced by Xinyi Electronic Technology (Shanghai) Co., Ltd.!
+Your support and trust in us and our products gives us the confidence and courage to move forward.
 
-本教程为FPGA和裸机部分教程，通过不断练习，掌握FPGA和裸机开发的基本流程，虽然没有讲解很多大道理，但是熟能生巧，多多练习，逐渐掌握其中的奥秘。
+This tutorial is part of the FPGA and bare metal tutorial. Through continuous practice, you can master the basic process of FPGA and bare metal development. Although it does not explain many major principles, practice makes perfect. Practice more and gradually master the secrets.
 
 
-准备工作及注意事项
-==================
+Preparation work and precautions
+==================================
 
-软件环境
---------
+Software Environment
+------------------------
 
-软件开发环境基于Vivado 2023.2
+The software development environment is based on Vivado 2023.2
 
-硬件环境
---------
+Hardware environment
+-----------------------
 
-+---------------------------------+------------------------------------+
-| 开发板型号                      | 芯片型号                           |
-+---------------------------------+------------------------------------+
-| VD100                           | xcve2302-sfva784-1LP-e-s           |
-+---------------------------------+------------------------------------+
++----------------------------------+--------------------------------------------+
+| Development board model          | Chip model                                 |
++----------------------------------+--------------------------------------------+
+| VD100                            | xcve2302-sfva784-1LP-es                    |
++----------------------------------+--------------------------------------------+
 
-脚本建立Vivado工程
-==================
+Script to create Vivado project
+==================================
 
-每个工程下面都有一个生成vivado的脚本，用于重建vivado工程，有两种方法可以使用，一是利用批处理文件，右键编辑create_project.bat
+There is a script to generate vivado under each project, which is used to rebuild the vivado project. There are two methods to use. One is to use the batch file and right-click to edit create_project.bat
 
 .. image:: images/media/image4.png
-   :width: 1.16181in
-   :height: 0.24653in
+  :width: 1.16181in
+  :height: 0.24653in
 
 .. image:: images/media/image5.png
-   :width: 2.26528in
-   :height: 0.91042in
+  :width: 2.26528in
+  :height: 0.91042in
 
-将路径换成自己电脑上的vivado安装路径，保存，然后双击即可生成vivado工程。
+Change the path to the vivado installation path on your computer, save it, and then double-click to generate the vivado project.
 
 .. image:: images/media/image6.png
-   :width: 5.09931in
-   :height: 0.28889in
+  :width: 5.09931in
+  :height: 0.28889in
 
-第二种方法是打开vivado软件，先用cd命令进入auto_create_project目录，然后运行source
-./create_project.tcl命令。
+The second method is to open the vivado software, first use the cd command to enter the auto_create_project directory, and then run source
+./create_project.tcl command.
 
-脚本建立Vitis工程
-=================
+Script to create Vitis project
+================================
 
-由于Vitis工程编译后占用空间较大，因此为了节省大家宝贵的时间，我们提供了Vitis工程的python脚本，在每个工程下都有个vitis文件夹，里面包含硬件描述文件xx.xsa，以及自动创建工程的脚本
+Since the Vitis project takes up a lot of space after compilation, in order to save everyone's precious time, we provide the python script of the Vitis project. There is a vitis folder under each project, which contains the hardware description file xx.xsa, and the automatic Script to create project
 
 .. image:: images/media/image7.png
-   :width: 2.77083in
-   :height: 0.77292in
+  :width: 2.77083in
+  :height: 0.77292in
 
-大家需要做的是右键编辑builder.py文件，vitis路径换成自己电脑的安装路径
+What you need to do is to right-click on the builder.py file and change the vitis path to the installation path of your computer.
 
 .. image:: images/media/image8.png
-   :width: 3.76042in
-   :height: 0.47014in
+  :width: 3.76042in
+  :height: 0.47014in
 
-保存之后，打开vitis软件
+After saving, open the vitis software
 
 .. image:: images/media/image9.png
-   :width: 3.18611in
-   :height: 2.00833in
+  :width: 3.18611in
+  :height: 2.00833in
 
-打开新的terminal
+Open a new terminal
 
 .. image:: images/media/image10.png
-   :width: 3.92222in
-   :height: 0.67569in
+  :width: 3.92222in
+  :height: 0.67569in
 
-使用cd命令进入vitis工程路径，并输入vitis -i，进入vitis CLI
+Use the cd command to enter the vitis project path, and enter vitis -i to enter the vitis CLI.
 
 .. image:: images/media/image11.png
-   :width: 4.89236in
-   :height: 1.2125in
+  :width: 4.89236in
+  :height: 1.2125in
 
-输入run -t builder.py，回车
+Type run -t builder.py and press Enter
 
 .. image:: images/media/image12.png
-   :width: 4.07917in
-   :height: 0.43889in
+  :width: 4.07917in
+  :height: 0.43889in
 
-创建完成
+Creation completed
 
 .. image:: images/media/image13.png
-   :width: 4.22778in
-   :height: 1.40972in
+  :width: 4.22778in
+  :height: 1.40972in
 
-点击Open Workspace切换到vitis工作目录
+Click Open Workspace to switch to the vitis working directory
 
 .. image:: images/media/image14.png
-   :width: 4.29444in
-   :height: 2.11319in
+  :width: 4.29444in
+  :height: 2.11319in
 
-可以看到创建好的工程
+You can see the created project
 
 .. image:: images/media/image15.png
-   :width: 3.68264in
-   :height: 1.84306in
+  :width: 3.68264in
+  :height: 1.84306in
 
-这个时候，APP工程和platform可能没有关联好，要手动关联。可以先把platform编译一遍。
+At this time, the APP project and platform may not be related well, and they need to be related manually. You can compile the platform first.
 
 .. image:: images/media/image16.png
-   :width: 3.67222in
-   :height: 0.95764in
+  :width: 3.67222in
+  :height: 0.95764in
 
-选中component，点设置，点击switch platform
+Select component, click settings, click switch platform
 
 .. image:: images/media/image17.png
-   :width: 5.22153in
-   :height: 4.05833in
+  :width: 5.22153in
+  :height: 4.05833in
 
 .. image:: images/media/image18.png
-   :width: 5.09306in
-   :height: 1.38611in
+  :width: 5.09306in
+  :height: 1.38611in
 
-再build工程，即可使用
+Build the project again and you can use it
 
 .. image:: images/media/image19.png
-   :width: 4.05625in
-   :height: 1.15278in
+  :width: 4.05625in
+  :height: 1.15278in
 
-第一章 Versal介绍
-==================
+Chapter 1 Introduction to Versal
+=================================
 
-Versal包含了Cortex-A72处理器和Cortex-R5处理器，PL端可编程逻辑部分，PMC平台管理控制器，AI
-Engine等模块，与以往的ZYNQ
-7000和MPSoC不同，Versal内部是通过NoC片上网络进行互联。
+Versal includes Cortex-A72 processor and Cortex-R5 processor, PL programmable logic part, PMC platform management controller, AI
+Engine and other modules are different from the previous ZYNQ
+Unlike MPSoC 7000, Versal is interconnected internally through the NoC on-chip network.
 
 .. image:: images/media/image20.png
-   :width: 5.83819in
-   :height: 5.02917in
+  :width: 5.83819in
+  :height: 5.02917in
 
-Versal芯片的总体框图
+Overall block diagram of the Versal chip
 
-PS: 处理系统 （Processing System) , 就是与FPGA无关的ARM的SoC的部分。
+PS: Processing System is the part of ARM SoC that has nothing to do with FPGA.
 
-PL: 可编程逻辑 (Progarmmable Logic), 就是FPGA部分。
+PL: Programmable Logic, which is the FPGA part.
 
-1.1 NoC架构 
-------------
+NoC architecture
+-----------------
 
-Versal可编程片上网络（NoC)是一种AXI互连网络，用于在可编程逻辑PL，处理器系统PS等之间共享数据，而之前的Versal系列采用的AXI交叉互联模块，这是Versal的不同之处。
+Versal programmable network-on-chip (NoC) is an AXI interconnect network used to share data between programmable logic PL, processor system PS, etc. The previous Versal series used the AXI cross-interconnect module, which is Versal's the difference.
 
-NoC是为可扩展性而设计的。它由一系列相互连接的水平（HNoC）和垂直（VNoC）路径，由一组可定制的硬件实现组件支持，这些组件可以以不同的方式进行配置，以满足设计时序、速度和逻辑利用率要求。以下是NoC的结构图
+NoC is designed for scalability. It consists of a series of interconnected horizontal (HNoC) and vertical (VNoC) paths supported by a set of customizable hardware implementation components that can be configured in different ways to meet design timing, speed and logic utilization requirements . The following is the structure diagram of the NoC
 
 .. image:: images/media/image21.png
-   :width: 5.84931in
-   :height: 3.97153in
+  :width: 5.84931in
+  :height: 3.97153in
 
-从NoC的结构图，可以看到，其主要由NMU（NoC master units），NSU（NoC slave
-units），NPI（NoC programming interface），NPS（NoC packet
-switch）组成。PS端可以连接到NMU，再通过NPS连接访问到DDRMC，同样PL端也可以通过NMU，NPS访问到DDRMC。通过NPS路由的方式，灵活地访问各模块。
+From the structure diagram of NoC, we can see that it mainly consists of NMU (NoC master units), NSU (NoC slave
+units), NPI (NoC programming interface), NPS (NoC packet
+switch). The PS side can connect to NMU and then access DDRMC through NPS connection. Similarly, the PL side can also access DDRMC through NMU and NPS. Access each module flexibly through NPS routing.
 
 .. image:: images/media/image22.png
-   :width: 5.71319in
-   :height: 3.05764in
+  :width: 5.71319in
+  :height: 3.05764in
 
-NMU结构
+NMU structure
 
 .. image:: images/media/image23.png
-   :width: 6.00069in
-   :height: 2.40208in
+  :width: 6.00069in
+  :height: 2.40208in
 
-NSU结构
+NSU structure
 
-从以上的NMU,
-NSU结构可以看到，对用户的接口仍然是AXI总线，在其内部，将AXI数据进行组包或解包，连接到NoC网络。
+From the above NMU,
+It can be seen from the NSU structure that the interface to the user is still the AXI bus. Inside it, AXI data is packaged or unpacked and connected to the NoC network.
 
 .. image:: images/media/image24.png
-   :width: 2.71458in
-   :height: 2.71944in
+  :width: 2.71458in
+  :height: 2.71944in
 
-NPS结构
+NPS structure
 
-而NMU和NSU都是连接到NPS上的，它相当于一个路由器，将数据转发给目的设备。它是一个全双工的4x4
-switch，每个端口在每个方向支持8个虚拟通道，采用基于信用的流控，类似于TCP的滑动窗口。
+Both NMU and NSU are connected to the NPS, which is equivalent to a router and forwards data to the destination device. It's a full 4x4
+switch, each port supports 8 virtual channels in each direction, using credit-based flow control, similar to TCP's sliding window.
 
-NoC是Versal开发中非常重要的部件，PS端访问DDR，PL端访问DDR都是通过NoC，与Versal不同的是，versal在PS端没有DDR控制器，都是通过NoC访问，因此了解NoC结构是很有必要的，更多的内容可以参考官方的pg313文档。
+NoC is a very important component in the development of Versal. The PS side accesses DDR and the PL side accesses DDR through NoC. Different from Versal, versal does not have a DDR controller on the PS side and all accesses through NoC. Therefore, understanding the NoC structure is It is necessary. For more information, please refer to the official pg313 document.
 
-1.2 PMC架构
--------------
+PMC architecture
+------------------
 
-PMC（平台管理控制器）在启动，配置，运行时做平台的管理。从下图的结构图中可以看出，PMC由ROM
-Code Unit，Platform Processing Unit，PMC I/O
-Peripherals等单元组成，功能丰富。在这里主要介绍一下PMC是如何引导程序启动的。
+PMC (Platform Management Controller) manages the platform during startup, configuration, and operation. As can be seen from the structure diagram below, PMC consists of ROM
+Code Unit, Platform Processing Unit, PMC I/O
+It is composed of Peripherals and other units and has rich functions. Here we mainly introduce how PMC bootstraps startup.
 
 .. image:: images/media/image25.png
-   :width: 5.84861in
-   :height: 6.04444in
+  :width: 5.84861in
+  :height: 6.04444in
 
-PMC结构图
+PMC structure diagram
 
 .. image:: images/media/image26.png
-   :width: 4.77431in
-   :height: 3.00417in
+  :width: 4.77431in
+  :height: 3.00417in
 
-第一阶段：Pre-Boot
+The first stage: Pre-Boot
 
-1. PMC检测PMC电源和POR_B释放
+1. PMC detects PMC power supply and POR_B release
 
-2. PMC读取启动模式引脚并存入boot mode寄存器
+2. PMC reads the boot mode pin and stores it in the boot mode register
 
-3. PMC发送复位给RCU（ROM code unit)
+3. PMC sends reset to RCU (ROM code unit)
 
 .. image:: images/media/image27.png
-   :width: 4.62431in
-   :height: 3.62917in
+  :width: 4.62431in
+  :height: 3.62917in
 
-第二阶段：Boot Setup
+The second stage: Boot Setup
 
-4. RCU从RCU ROM中执行BootROM
+4. RCU executes BootROM from RCU ROM
 
-5. BootROM读出boot mode寄存器，选择启动设备
+5. BootROM reads the boot mode register and selects the boot device
 
-6. BootROM从启动设备读取PDI（programmable device image)并校验
+6. BootROM reads PDI (programmable device image) from the boot device and verifies it
 
-7. BootROM释放PPU的复位，将PLM加载到PPU RAM并校验。校验后，PPU唤醒，PLM
-软件开始执行。
+7. BootROM releases the PPU reset, loads the PLM into the PPU RAM and verifies it. After verification, PPU wakes up and PLM
+The software starts executing.
 
-8. BootROM进入睡眠状态
-
-.. image:: images/media/image28.png
-   :width: 4.77431in
-   :height: 3.27153in
-
-第三阶段：Load Platform
-
-9. PPU开始从PPU RAM中执行PLM
-
-10. PLM开始读取并运行PDI模块
-
-11. PLM利用PDI内容配置Versal其他部分
-
-11a: PLM为以下模块配置数据： PMC， PS clocks
-
-(MIO ,clocks, resets等）(CDO文件）
-
-NoC初始化和NPI模块（DDR控制器，NoC，
-
-GT,XPIPE,I/Os,clocking和其他NPI模块
-
-PLM加载APU和RPU的应用程序ELF到存储空间，
-
-如DDR，OCM，TCM等
-
-11b: PL端逻辑配置
-
-PL端数据（CFI文件）
-
-AI Engine配置（AI Engine CDO)
+8. BootROM enters sleep state
 
 .. image:: images/media/image28.png
-   :width: 4.77431in
-   :height: 3.27153in
+  :width: 4.77431in
+  :height: 3.27153in
 
-第四阶段：Post-Boot
+The third stage: Load Platform
 
-12.
-PLM继续运行，直到下一次POR或系统复位。并负责DFX重配置，电源管理，子系统
-重启，错误管理，安全服务。
+9. PPU starts executing PLM from PPU RAM
 
-1.3 Versal芯片开发流程的简介
------------------------------
+10. PLM starts to read and run the PDI module
 
-由于Versal将CPU与FPGA集成在了一起，开发人员既需要设计ARM的操作系统应用程序和设备的驱动程序，又需要设计FPGA部分的硬件逻辑设计。开发中既要了解Linux操作系统，系统的构架，也需要搭建一个FPGA和ARM系统之间的硬件设计平台。所以Versal的开发是需要软件人员和硬件硬件人员协同设计并开发的。这既是Versal开发中所谓的"软硬件协同设计”。
+11. PLM uses PDI content to configure other parts of Versal
 
-Versal系统的硬件系统和软件系统的设计和开发需要用到一下的开发环境和调试工具：
+11a: PLM configures data for the following modules: PMC, PS clocks
+
+(MIO, clocks, resets, etc.) (CDO file)
+
+NoC initialization and NPI module (DDR controller, NoC,
+
+GT, XPIPE, I/Os, clocking and other NPI modules
+
+PLM loads the application ELF of APU and RPU into storage space,
+
+Such as DDR, OCM, TCM, etc.
+
+11b: PL side logic configuration
+
+PL side data (CFI file)
+
+AI Engine configuration (AI Engine CDO)
+
+.. image:: images/media/image28.png
+  :width: 4.77431in
+  :height: 3.27153in
+
+The fourth stage: Post-Boot
+
+12. PLM continues to operate until the next POR or system reset. And responsible for DFX reconfiguration, power management, subsystemsRestart, error management, security services.
+
+An introduction to the Versal chip development process
+--------------------------------------------------------
+
+Since Versal integrates the CPU and FPGA, developers need to design not only ARM operating system applications and device drivers, but also the hardware logic design of the FPGA part. During development, you need to understand the Linux operating system and system architecture, and you also need to build a hardware design platform between FPGA and ARM systems. Therefore, the development of Versal requires collaborative design and development by software personnel and hardware personnel. This is the so-called "software and hardware co-design" in Versal development.
+
+The design and development of the hardware system and software system of the Versal system requires the following development environment and debugging tools:
 Xilinx
-Vivado。Vivado设计套件实现FPGA部分的设计和开发，管脚和时序的约束，编译和仿真，实现RTL到比特流的设计流程。
+Vivado. The Vivado design suite implements the design and development of the FPGA part, pin and timing constraints, compilation and simulation, and implements the RTL to bitstream design process.
 
 Xilinx
-Vitis是Xilinx软件开发套件(SDK),在Vivado硬件系统的基础上，系统会自动配置一些重要参数，其中包括工具和库路径、编译器选项、JTAG和闪存设置，调试器连接已经裸机板支持包(BSP)。SDK也为所有支持的Xilinx
-IP硬核提供了驱动程序。Vitis支持IP硬核（FPGA上）和处理器软件协同调试，我们可以使用高级C或C++语言来开发和调试ARM和FPGA系统，测试硬件系统是否工作正常。Vitis软件也是Vivado软件自带的，无需单独安装。
+Vitis is the Xilinx software development kit (SDK). Based on the Vivado hardware system, the system will automatically configure some important parameters, including tool and library paths, compiler options, JTAG and flash memory settings, debugger connection and bare metal board support package (BSP). SDK is also available for all supported Xilinx
+The IP hard core provides drivers. Vitis supports collaborative debugging of IP hard core (on FPGA) and processor software. We can use high-level C or C++ language to develop and debug ARM and FPGA systems to test whether the hardware system is working properly. Vitis software also comes with Vivado software and does not need to be installed separately.
 
-Versal的开发也是先硬件后软件的方法。具体流程如下：
+The development of Versal is also a hardware-first-software approach. The specific process is as follows:
 
-1) 在Vivado上新建工程，增加一个嵌入式的源文件。
+1) Create a new project on Vivado and add an embedded source file.
 
-2) 在Vivado里添加和配置PS和PL部分基本的外设，或需要添加自定义的外设。
+2) Add and configure some basic peripherals of PS and PL in Vivado, or need to add customized peripherals.
 
-3) 在Vivado里生成顶层HDL文件，并添加约束文件。再编译生成比特流文件（xx.pdi）。
+3) Generate the top-level HDL file in Vivado and add the constraint file. Then compile and generate bitstream file ( XX.pdi).
 
-4) 导出硬件信息到Vitis软件开发环境，在Vitis环境里可以编写一些调试软件验证硬件和软件，结合比特流文件单独调试Versal系统。
+4) Export the hardware information to the Vitis software development environment. In the Vitis environment, you can write some debugging software to verify the hardware and software, and combine the bitstream files to debug the Versal system alone.
 
-5) 在VMware虚拟机里生成u-boot.elf、 bootloader 镜像。
+5) Generate u-boot.elf and bootloader images in the VMware virtual machine.
 
-6) 在Vitis里将比特流文件和u-boot.elf文件生成一个BOOT.pdi文件。
+6) Generate a BOOT.pdi file from the bitstream file and u-boot.elf file in Vitis.
 
-7) 在VMware里生成Ubuntu的内核镜像文件Zimage和Ubuntu的根文件系统。另外还需要要对FPGA自定义的IP编写驱动。
+7) Generate Ubuntu kernel image file Zimage and Ubuntu root file system in VMware. In addition, you need to write a driver for the FPGA's custom IP.
 
-8) 把BOOT、内核、设备树、根文件系统文件放入到SD卡中，启动开发板电源，Linux操作系统会从SD卡里启动。
+8) Put the BOOT, kernel, device tree, and root file system files into the SD card, turn on the power of the development board, and the Linux operating system will boot from the SD card.
 
-1.4 学习Versal要具备哪些技能
-------------------------------
+What skills are required to learn Versal?
+-------------------------------------------
 
-学习Versal比学习FPGA、MCU、ARM等传统工具开发要求更高，想学好Versal也不是一蹴而就的事情。
+Learning Versal is more demanding than learning traditional tool development such as FPGA, MCU, ARM, etc. Learning Versal well is not something that can be accomplished overnight.
 
-1.4.1 软件开发人员
-~~~~~~~~~~~~~~~~~~~
+software developer
+~~~~~~~~~~~~~~~~~~~~~~~~
 
--  计算机组成原理
+- Principles of computer composition
 
--  C、C++语言
+- C, C++ language
 
--  计算机操作系统
+- Computer operating system
 
--  tcl脚本
+- tcl script
 
--  良好的英语阅读基础
+- Good foundation in English reading
 
-1.4.2 逻辑开发人员
-~~~~~~~~~~~~~~~~~~~
+logic developer
+~~~~~~~~~~~~~~~~~~
 
--  计算机组成原理
+- Principles of computer composition
 
--  C语言
+- C language
 
--  数字电路基础
+- Basics of digital circuits
