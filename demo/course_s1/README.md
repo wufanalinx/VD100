@@ -1,4 +1,4 @@
-# Xilinx Zynq UltraScale+MPSoC series development board AXU2CG-E, AXU3EG, AXU4EV-E, AXU5EV-E  
+# Course s1 introduction
 The course_s1 provides scripts for pure FPGA and bare-metal projects to quickly restore the project.
 
 There are two methods to create vivado project as below:
