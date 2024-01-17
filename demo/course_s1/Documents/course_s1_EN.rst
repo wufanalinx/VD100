@@ -1,5 +1,5 @@
 illustrate
-==
+===========
 
 First of all, thank you for purchasing the Versal development board produced by Xinyi Electronic Technology (Shanghai) Co., Ltd.!
 Your support and trust in us and our products gives us the confidence and courage to move forward.
@@ -8,24 +8,24 @@ This tutorial is part of the FPGA and bare metal tutorial. Through continuous pr
 
 
 Preparation work and precautions
-==================
+==================================
 
 Software Environment
---------
+------------------------
 
 The software development environment is based on Vivado 2023.2
 
 Hardware environment
---------
+-----------------------
 
-+----------------------------------+------------------ --------------------------+
-| Development board model | Chip model |
-+----------------------------------+------------------ --------------------------+
-| VD100 | xcve2302-sfva784-1LP-es |
-+----------------------------------+------------------ --------------------------+
++----------------------------------+--------------------------------------------+
+| Development board model          | Chip model                                 |
++----------------------------------+--------------------------------------------+
+| VD100                            | xcve2302-sfva784-1LP-es                    |
++----------------------------------+--------------------------------------------+
 
 Script to create Vivado project
-==================
+==================================
 
 There is a script to generate vivado under each project, which is used to rebuild the vivado project. There are two methods to use. One is to use the batch file and right-click to edit create_project.bat
 
@@ -47,7 +47,7 @@ The second method is to open the vivado software, first use the cd command to en
 ./create_project.tcl command.
 
 Script to create Vitis project
-=================
+================================
 
 Since the Vitis project takes up a lot of space after compilation, in order to save everyone's precious time, we provide the python script of the Vitis project. There is a vitis folder under each project, which contains the hardware description file xx.xsa, and the automatic Script to create project
 
@@ -125,8 +125,8 @@ Build the project again and you can use it
   :width: 4.05625in
   :height: 1.15278in
 
-Introduction to Versal
-==========
+Chapter 1 Introduction to Versal
+=================================
 
 Versal includes Cortex-A72 processor and Cortex-R5 processor, PL programmable logic part, PMC platform management controller, AI
 Engine and other modules are different from the previous ZYNQ
@@ -143,7 +143,7 @@ PS: Processing System is the part of ARM SoC that has nothing to do with FPGA.
 PL: Programmable Logic, which is the FPGA part.
 
 NoC architecture
---------
+-----------------
 
 Versal programmable network-on-chip (NoC) is an AXI interconnect network used to share data between programmable logic PL, processor system PS, etc. The previous Versal series used the AXI cross-interconnect module, which is Versal's the difference.
 
@@ -184,7 +184,7 @@ switch, each port supports 8 virtual channels in each direction, using credit-ba
 NoC is a very important component in the development of Versal. The PS side accesses DDR and the PL side accesses DDR through NoC. Different from Versal, versal does not have a DDR controller on the PS side and all accesses through NoC. Therefore, understanding the NoC structure is It is necessary. For more information, please refer to the official pg313 document.
 
 PMC architecture
--------
+------------------
 
 PMC (Platform Management Controller) manages the platform during startup, configuration, and operation. As can be seen from the structure diagram below, PMC consists of ROM
 Code Unit, Platform Processing Unit, PMC I/O
@@ -261,12 +261,10 @@ AI Engine configuration (AI Engine CDO)
 
 The fourth stage: Post-Boot
 
-12.
-PLM continues to operate until the next POR or system reset. And responsible for DFX reconfiguration, power management, subsystems
-Restart, error management, security services.
+12. PLM continues to operate until the next POR or system reset. And responsible for DFX reconfiguration, power management, subsystemsRestart, error management, security services.
 
 An introduction to the Versal chip development process
---------------------------
+--------------------------------------------------------
 
 Since Versal integrates the CPU and FPGA, developers need to design not only ARM operating system applications and device drivers, but also the hardware logic design of the FPGA part. During development, you need to understand the Linux operating system and system architecture, and you also need to build a hardware design platform between FPGA and ARM systems. Therefore, the development of Versal requires collaborative design and development by software personnel and hardware personnel. This is the so-called "software and hardware co-design" in Versal development.
 
@@ -284,7 +282,7 @@ The development of Versal is also a hardware-first-software approach. The specif
 
 2) Add and configure some basic peripherals of PS and PL in Vivado, or need to add customized peripherals.
 
-3) Generate the top-level HDL file in Vivado and add the constraint file. Then compile and generate bitstream file (*.pdi).
+3) Generate the top-level HDL file in Vivado and add the constraint file. Then compile and generate bitstream file ( XX.pdi).
 
 4) Export the hardware information to the Vitis software development environment. In the Vitis environment, you can write some debugging software to verify the hardware and software, and combine the bitstream files to debug the Versal system alone.
 
@@ -297,12 +295,12 @@ The development of Versal is also a hardware-first-software approach. The specif
 8) Put the BOOT, kernel, device tree, and root file system files into the SD card, turn on the power of the development board, and the Linux operating system will boot from the SD card.
 
 What skills are required to learn Versal?
---------------------------
+-------------------------------------------
 
 Learning Versal is more demanding than learning traditional tool development such as FPGA, MCU, ARM, etc. Learning Versal well is not something that can be accomplished overnight.
 
 software developer
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~
 
 - Principles of computer composition
 
@@ -315,7 +313,7 @@ software developer
 - Good foundation in English reading
 
 logic developer
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 
 - Principles of computer composition
 
@@ -323,17 +321,17 @@ logic developer
 
 - Basics of digital circuits
 
-PL's "Hello World" LED experiment
-========================
+Chapter 2 PL's "Hello World" LED experiment
+============================================
 
-**Experimental Vivado project for "led". **
+**Experimental Vivado project for "led".**
 
 For Versal, PL (FPGA) development is crucial. This is where Versal has an advantage over other ARMs. It can customize many ARM-side peripherals. Before customizing ARM-side peripherals, let us first go through an LED example. Cheng Lai is familiar with the development process of PL (FPGA) and the basic operation of Vivado software. This development process is exactly the same as that of FPGA chips without ARM.
 
 In this routine, what we are going to do is an LED light control experiment. We control the LED light on the development board to flip once every second to achieve on, off, on, and off control.
 
 LED hardware introduction
-----------
+-------------------------------
 
 The PL part of the development board is connected to a red user LED light. This 1 light is completely controlled by PL. If PL_LED1 is high level, the three-stage tube is turned on, and the light will be on, otherwise it will be off.
 
@@ -342,7 +340,7 @@ The PL part of the development board is connected to a red user LED light. This 
   :height: 2.47569in
 
 Create a Vivado project
----------------
+-------------------------
 
 1) Start Vivado. In Windows, you can start it by double-clicking the Vivado shortcut.
 
@@ -403,7 +401,7 @@ language" select "Verilog". Although Verilog is selected, VHDL can also be used 
   :height: 3.97672in
 
 Create Verilog HDL file to light up LED
---------------------------
+------------------------------------------
 
 1) Click the Add Sources icon under Project Manager (or use the shortcut Alt+A)
 
@@ -459,13 +457,13 @@ name", the default here will not be "led", you can also specify some ports, but 
 Used to count 0~199999999 (1 second) in a loop. When counting to 199999999 (1 second),
 The register timer becomes 0 and the four LEDs are toggled. In this way, if the original LED is off, it will light up; if the original LED is on, it will go out. Since the input clock is a 200MHz differential clock, the IBUFDS primitive needs to be added to connect the differential signal. The code after writing is as follows:
 
-+------------------------------------------------- -----------------------+
-| \`timescale 1ns **/** 1ps |
-| |
-| **module** led\ **(** |
-| |
-| //Differential system clock |
-| |
++-----------------------------------------------------------------------+
+| \`timescale 1ns **/** 1ps                                             |
+|                                                                       |
+| **module** led\ **(**                                                 |
+|                                                                       |
+| //Differential system clock                                           |
+|                                                                       |
 | **input** sys_clk_p\ **,**                                            |
 |                                                                       |
 | **input** sys_clk_n\ **,**                                            |
@@ -526,16 +524,16 @@ The register timer becomes 0 and the four LEDs are toggled. In this way, if the 
 | timer_cnt **<=** timer_cnt **+** 32'd1\ **;**                         |
 |                                                                       |
 | **end**                                                               |
-| |
-| **end** |
-| |
-| **endmodule** |
-+------------------------------------------------- -----------------------+
+|                                                                       |
+| **end**                                                               |
+|                                                                       |
+| **endmodule**                                                         |
++-----------------------------------------------------------------------+
 
 10) Save the code after writing it
 
 Add pin constraints
-----------
+------------------------
 
 The constraint file format used by Vivado is xdc file. The xdc file mainly completes the pin constraints and clock constraints.
 and group constraints. Here we need to assign the input and output ports in the led.v program to the real pins of the FPGA.
@@ -562,8 +560,8 @@ and group constraints. Here we need to assign the input and output ports in the 
   :width: 4.82986in
   :height: 1.96389in
 
-+------------------------------------------------- -----------------------+
-| set_property PACKAGE_PIN AB23 [get_ports sys_clk_p] |
++-----------------------------------------------------------------------+
+| set_property PACKAGE_PIN AB23 [get_ports sys_clk_p]                   |
 |                                                                       |
 | set_property PACKAGE_PIN F21 [get_ports rst_n]                        |
 |                                                                       |
@@ -574,13 +572,13 @@ and group constraints. Here we need to assign the input and output ports in the 
 | set_property IOSTANDARD LVCMOS15 [get_ports rst_n]                    |
 |                                                                       |
 | set_property IOSTANDARD LVDS15 [get_ports sys_clk_p]                  |
-| |
-| create_clock -period 5.000 -name sys_clk_p -waveform {0.000 2.500} |
-| [get_ports sys_clk_p] |
-+------------------------------------------------- -----------------------+
+|                                                                       |
+| create_clock -period 5.000 -name sys_clk_p -waveform {0.000 2.500}    |
+| [get_ports sys_clk_p]                                                 |
++-----------------------------------------------------------------------+
 
 Generate pdi file
-----------
+--------------------
 
 1) The compilation process can be subdivided into synthesis, placement and routing, bit file generation, etc. Here we directly click "Generate
 Device Image", directly generate pdi files.
@@ -675,7 +673,7 @@ Hardware Manger", of course, you can also choose "Cancel", we choose here
   :height: 1.51181in
 
 Vivado simulation
-----------
+-------------------
 
 Next, we might as well try our best and use Vivado's own simulation tool to output waveforms to verify whether the flow lamp program design results are consistent with our expectations (note: you can also simulate before generating the bit file). Specific steps are as follows:
 
@@ -692,8 +690,7 @@ In the Settings window, configure as shown below. Here, set it to 50ms (set it a
   :width: 4.16967in
   :height: 3.68114in
 
-3. Add the incentive test file and click Add under Project Manager
-Sources icon, click Next after setting as shown below.
+3. Add the incentive test file and click Add under Project Manager Sources icon, click Next after setting as shown below.
 
 .. image:: images/media/image68.png
   :width: 4.24388in
@@ -732,16 +729,10 @@ There is an additional vtf_led_test file just added in the Sources directory. Do
 
 6. Next we need to write the content of this vtf_led_test.v file. First define the input and output signals, and then instantiate the led_test module to make the led_test program part of this test program. Then add reset and clock excitation. The completed vtf_led_test.v file is as follows:
 
-+------------------------------------------------- -----------------------+
-| \`timescale 1ns **/** 1ps |
-| |
-| /////////////                                                         |
-| ///////////////////////////////////////////////////////////////////// |
++-----------------------------------------------------------------------+
+| \`timescale 1ns **/** 1ps                                             |
 |                                                                       |
 | // Module Name: vtf_led_test                                          |
-|                                                                       |
-| /////////////                                                         |
-| ///////////////////////////////////////////////////////////////////// |
 |                                                                       |
 | **module** vtf_led_test\ **;**                                        |
 |                                                                       |
@@ -795,17 +786,16 @@ There is an additional vtf_led_test file just added in the Sources directory. Do
 |                                                                       |
 | **assign** sys_clk_n **=** **~**\ sys_clk_p **;**                     |
 |                                                                       |
-| **endmodule** |
-+------------------------------------------------- -----------------------+
+| **endmodule**                                                         |
++-----------------------------------------------------------------------+
 
-7) After writing, save, vtf_led_test.v automatically becomes the top level of this simulation Hierarchy, and below it is the design file led_test.v.
+1) After writing, save, vtf_led_test.v automatically becomes the top level of this simulation Hierarchy, and below it is the design file led_test.v.
 
 .. image:: images/media/image74.png
   :width: 2.63408in
   :height: 2.45107in
 
-8) Click the Run Simulation button and select Run Behavioral
-Simulation. Here we can just do behavioral level simulation.
+8) Click the Run Simulation button and select Run Behavioral Simulation. Here we can just do behavioral level simulation.
 
 .. image:: images/media/image75.png
   :width: 2.88031in
@@ -813,16 +803,13 @@ Simulation. Here we can just do behavioral level simulation.
 
 If there are no errors, the simulation software in Vivado starts working.
 
-10.
-After the simulation interface pops up, as shown below, the interface is the waveform of 50ms when the simulation software automatically runs to the simulation setting.
+10. After the simulation interface pops up, as shown below, the interface is the waveform of 50ms when the simulation software automatically runs to the simulation setting.
 
 .. image:: images/media/image76.png
   :width: 6.00417in
   :height: 1.23611in
 
-Since the state change time of LED[3:0] designed in the program is long, and the simulation is relatively time-consuming, we observe the changes of the timer[31:0] counter here. Put it into Wave and observe it (click uut under the Scope interface,
-Then right-click and select timer under the Objects interface, and select Add Wave in the pop-up drop-down menu.
-Window).
+Since the state change time of LED[3:0] designed in the program is long, and the simulation is relatively time-consuming, we observe the changes of the timer[31:0] counter here. Put it into Wave and observe it (click uut under the Scope interface,Then right-click and select timer under the Objects interface, and select Add Wave in the pop-up drop-down menu.Window).
 
 .. image:: images/media/image77.png
   :width: 3.82425in
@@ -834,8 +821,7 @@ After adding, the timer is displayed on the Wave interface, as shown in the figu
   :width: 4.75283in
   :height: 1.31547in
 
-11. Click the Restart button marked below to reset, and then click Run
-All button. (Patience is required!!!), you can see that the simulation waveform is consistent with the design. (Note: The longer the simulation time, the greater the disk space occupied by the simulated waveform file. The waveform file is in the xx.sim folder of the project directory)
+11. Click the Restart button marked below to reset, and then click RunAll button. (Patience is required!!!), you can see that the simulation waveform is consistent with the design. (Note: The longer the simulation time, the greater the disk space occupied by the simulated waveform file. The waveform file is in the xx.sim folder of the project directory)
 
 .. image:: images/media/image79.png
   :width: 4.16502in
@@ -848,7 +834,7 @@ All button. (Patience is required!!!), you can see that the simulation waveform 
 We can see that the LED signal will change to 1, indicating that the LED light will brighten.
 
 download
-----
+----------
 
 1) Connect the JTAG interface of the development board and power on the development board. Note that the pull-out switch must select JTAG mode, that is, pull all the switches to "ON". The value represented by "ON" is 0. If JTAG mode is not used, an error will be reported when downloading. .
 
@@ -889,17 +875,17 @@ The LED starts changing every second. At this point, the Vivado simple process e
 It is introduced in the FAQ in the chapter "World".
 
 Experiment summary
---------
+--------------------
 
 This chapter introduces how to develop programs on the PL side, including project establishment, constraints, simulation and other methods. You can refer to this method in subsequent code development methods.
 
-PL reads and writes DDR4 experiment through NoC
-=====================
+Chapter 3 PL reads and writes DDR4 experiment through NoC
+==========================================================
 
-**The experimental VIvado project is "pl_rw_ddr". **
+**The experimental VIvado project is "pl_rw_ddr".**
 
 Hardware introduction
---------
+-----------------------
 
 The PL side of the development board has 4 16bit ddr4
 
@@ -908,12 +894,12 @@ The PL side of the development board has 4 16bit ddr4
   :height: 2.6in
 
 Vivado project set up
----------------
+-----------------------
 
 Versal's DDR4 is accessed through NoC, so NoC IP needs to be added for configuration.
 
 Create a Block design and configure the NoC
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1) Select Create Block Design
 
@@ -1049,7 +1035,7 @@ Double-click the AXI bus and configure
   :height: 1.55972in
 
 Add additional test code
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The main function of other codes is to read and write ddr4 and compare whether the data is consistent. I will not introduce it in detail here. You can refer to the engineering code.
 
@@ -1106,7 +1092,7 @@ Then save and generate pdi file
   :height: 0.75069in
 
 Download debugging
---------
+--------------------
 
 After generating the pdi file, use JTAG to download it to the development board, and DDR4 calibration and other information will be displayed in the MIG_1 window.
 
@@ -1123,35 +1109,35 @@ Debug signals can be viewed in hw_ila_1
 .. _Experiment Summary-1:
 
 Experiment summary
---------
+-----------------------
 
 This experiment directly reads and writes ddr4 through the PL side Verilog code. It mainly understands the configuration method of NoC and how to access DDR4 through NoC. This configuration will be used in subsequent experiments.
 
-LVDS LCD screen display experiment
-==================
+Chapter 4 LVDS LCD screen display experiment
+=============================================
 
-**The experimental Vivado project is "lvds_lcd". **
+**The experimental Vivado project is "lvds_lcd".**
 
 This chapter introduces the color bar display of lvds lcd LCD screen.
 
 .. _Hardware Introduction-1:
 
 Hardware introduction
---------
+--------------------------
 
 ALINX black gold 7-inch LCD screen module (AN7000) uses IVO's 7-inch TFT LCD screen.
 The model number of the LCD screen is M070AWAD R0. AN7000 LCD screen module is made of TFT
 It consists of an LCD screen and a driver board. For specific parameters, please refer to the AN7000 user manual. The actual photos of AN7000 are as follows:
 
 .. image:: images/media/image119.png
-:alt: \_K4A5291
+  :alt: \_K4A5291
   :width: 5.37431in
   :height: 3.34722in
 
 AN7000 LCD screen front view
 
 programming
---------
+---------------
 
 1) Like PL’s “Hello World” LED experiment, add a block
 design, and add the CIPS core and configure it as PL Subsystem
@@ -1223,7 +1209,7 @@ Define VIDEO_1280_720 in video_define.v because the LCD resolution is 1280*720
   :height: 0.75069in
 
 Experimental phenomena
---------
+-------------------------
 
 Connect the LCD screen, download the program, and you can see the color bar display.
 
@@ -1235,24 +1221,24 @@ Connect the LCD screen, download the program, and you can see the color bar disp
   :width: 5.35347in
   :height: 3.80694in
 
-GTYP transceiver bit error rate test IBERT experiment
-=============================
+Chapter 5 GTYP transceiver bit error rate test IBERT experiment
+=================================================================
 
-**The experimental VIvado project is "ibert_test", and there is also "ibert_ex" in the directory, which is the generated test project. **
+**The experimental VIvado project is "ibert_test", and there is also "ibert_ex" in the directory, which is the generated test project.**
 
 Vidado software provides us with the powerful bit error rate tester IBERT, which can not only test the bit error rate but also test the eye diagram, which brings great convenience to us in using high-speed transceivers. This experiment will serve as a starting point and briefly introduce the IBERT use.
 
 .. _Hardware Introduction-2:
 
 Hardware introduction
---------
+---------------------------
 
 To use IBERT to test the bit error rate and eye diagram, you must have transceiver loopback hardware. There are two SFP optical interfaces on the development board. In this experiment, the two optical interfaces are connected in pairs to form two transceiver loopthrough links.
 
 .. _vivado project creation-1:
 
 Vivado project set up
----------------
+------------------------
 
 1) Create a new project named "ibert_test"
 
@@ -1350,7 +1336,7 @@ Wizard", double-click
 .. _Download Debug-1:
 
 Download debugging
---------
+--------------------
 
 1) Insert the optical module, then use optical fiber to connect the two optical ports, connect the JTAG download cable, and power on the development board
 
@@ -1405,10 +1391,10 @@ TX corresponds to CH1 RX, Link 1 corresponds to Quad_104 CH_1 TX and CH0 RX
   :width: 5.99792in
   :height: 3.05069in
 
-Experience ARM, bare metal output "Hello World"
-==============================
+Chapter 6 Experience ARM, bare metal output "Hello World"
+===========================================================
 
-**From this chapter onwards, FPGA engineers and software development engineers collaborate to implement it. **
+**From this chapter onwards, FPGA engineers and software development engineers collaborate to implement it.**
 
 The previous experiments were all conducted on the PL side. It can be seen that there is no difference from the ordinary FPGA development process. The main advantage of ZYNQ is the reasonable combination of FPGA and ARM, which puts forward higher requirements for developers. Starting from this chapter, we start to use ARM, which is what we call PS. In this chapter, we use a simple serial port printing to experience Vivado
 Vitis and PS side features.
@@ -1418,19 +1404,19 @@ The previous experiments are all things that FPGA engineers should do. From the 
 .. _Hardware Introduction-3:
 
 Hardware introduction
---------
+----------------------------
 
 We can see from the schematic diagram that the ZYNQ chip is divided into PL and PS. The IO allocation on the PS side is relatively fixed and cannot be allocated arbitrarily, and there is no need to allocate pins in the Vivado software. Although this experiment only used PS, it still To create a Vivado project to configure PS pins. Although the ARM on the PS side is a hard core, in ZYNQ the ARM hard core must be added to the project before it can be used. The previous chapters introduced projects in the form of codes. This chapter begins by introducing ZYNQ's graphical approach to building projects.
 
 FPGA engineer job content
-------------------
+-------------------------------
 
 The following introduces what FPGA engineers are responsible for.
 
 .. _vivado project creation-2:
 
 Vivado project set up
----------------
+--------------------------
 
 1) Create a project named "ps_hello". The establishment process will not be described in detail. Please refer to "PL's" Hello
 World "LED Experiment".
@@ -1481,31 +1467,31 @@ System"
 
 9) Double-click CIPS to configure
 
-    .. image:: images/media/image161.png
-         :width: 4.58958in
-         :height: 3.92361in
+.. image:: images/media/image161.png
+  :width: 4.58958in
+  :height: 3.92361in
 
-    .. image:: images/media/image162.png
-         :width: 4.28125in
-         :height: 3.73403in
+.. image:: images/media/image162.png
+  :width: 4.28125in
+  :height: 3.73403in
 
-    点击PSPMC进行配置
+select PS PMC to config
 
-    .. image:: images/media/image163.png
-         :width: 3.59444in
-         :height: 0.93611in
+.. image:: images/media/image163.png
+  :width: 3.59444in
+  :height: 0.93611in
 
-10) 配置QSPI，EMMC，SD
+10) Config QSPI，EMMC，SD
 
-    .. image:: images/media/image164.png
-         :width: 5.21736in
-         :height: 2.54306in
+.. image:: images/media/image164.png
+  :width: 5.21736in
+  :height: 2.54306in
 
-    .. image:: images/media/image165.png
-         :width: 5.25in
-         :height: 2.70556in
+.. image:: images/media/image165.png
+  :width: 5.25in
+  :height: 2.70556in
 
-    .. image:: images/media/image166.png
+.. image:: images/media/image166.png
   :width: 5.09861in
   :height: 2.69375in
 
@@ -1557,31 +1543,31 @@ Configure peripherals
 
 16) Double-click AXI NoC to configure DDR4
 
-    .. image:: images/media/image175.png
-         :width: 1.77847in
-         :height: 1.86667in
+.. image:: images/media/image175.png
+  :width: 1.77847in
+  :height: 1.86667in
 
-    .. image:: images/media/image176.png
-         :width: 6.00208in
-         :height: 3.89514in
+.. image:: images/media/image176.png
+  :width: 6.00208in
+  :height: 3.89514in
 
-    .. image:: images/media/image177.png
-         :width: 6.00208in
-         :height: 2.32847in
+.. image:: images/media/image177.png
+  :width: 6.00208in
+  :height: 2.32847in
 
-    选择参考时钟和system clock
+select reference clock and system clock
 
-    .. image:: images/media/image178.png
-         :width: 5.21944in
-         :height: 2.06736in
+.. image:: images/media/image178.png
+  :width: 5.21944in
+  :height: 2.06736in
 
-    DDR Address Region 1选择NONE，点击OK
+DDR Address Region 1, select NONE and OK
 
-    .. image:: images/media/image179.png
-         :width: 5.99375in
-         :height: 3.34444in
+.. image:: images/media/image179.png
+  :width: 5.99375in
+  :height: 3.34444in
 
-17) Modify pin name
+1)  Modify pin name
 
 .. image:: images/media/image180.png
   :width: 5.99306in
@@ -1593,9 +1579,7 @@ Double-click to configure the frequency of sys_clk to 200MHz
   :width: 3.59375in
   :height: 2.04861in
 
-18) Select the Block design, right-click "Create HDL
-Wrapper...", create a Verilog or VHDL file for block
-design generates HDL top-level files.
+18) Select the Block design, right-click "Create HDLWrapper...", create a Verilog or VHDL file for blockdesign generates HDL top-level files.
 
 .. image:: images/media/image182.png
   :width: 4.225in
@@ -1605,33 +1589,33 @@ design generates HDL top-level files.
 
 .. image:: images/media/image183.png
   :width: 3.14452in
-     :height: 1.81793in
+  :height: 1.81793in
 
-20) 添加约束
+20) Add constraint
 
-    .. image:: images/media/image184.png
-         :width: 5.64444in
-         :height: 2.50208in
+.. image:: images/media/image184.png
+  :width: 5.64444in
+  :height: 2.50208in
 
-    .. image:: images/media/image185.png
-         :width: 2.62708in
-         :height: 2.05139in
+.. image:: images/media/image185.png
+  :width: 2.62708in
+  :height: 2.05139in
 
-    .. image:: images/media/image186.png
-         :width: 5.22708in
-         :height: 1.99375in
+.. image:: images/media/image186.png
+  :width: 5.22708in
+  :height: 1.99375in
 
 21) Generate Device Image
 
-    .. image:: images/media/image187.png
-         :width: 2.31944in
-         :height: 0.92569in
+.. image:: images/media/image187.png
+  :width: 2.31944in
+  :height: 0.92569in
 
-22) 完成后取消
+22) Cancel after completion
 
 .. image:: images/media/image188.png
-     :width: 2.59167in
-     :height: 1.77153in
+  :width: 2.59167in
+  :height: 1.77153in
 
 23) File->Export->Export Hardware...
 
@@ -1664,17 +1648,17 @@ At this time, you can see the xsa file in the project directory. This file conta
 At this point, the work of the FPGA engineer comes to an end.
 
 Software engineer job content
-------------------
+---------------------------------
 
 **The Vitis project directory is "ps_hello/vitis"**
 
 The following is the responsibility of software engineers.
 
 Debugging
-----------
+------------
 
 Create Application project
-~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1) Create a new folder and copy the xx.xsa file exported by vivado.
 
@@ -1787,7 +1771,7 @@ World
 .. _Download Debug-2:
 
 Download debugging
-~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 1) Connect the JTAG cable to the development board and the UART USB cable to the PC
 
@@ -1814,7 +1798,7 @@ Download debugging
   :height: 2.28125in
 
 firmware
---------
+-----------
 
 Ordinary FPGAs can generally be started from flash or passively loaded. The startup process has been introduced in the PMC architecture in Chapter 1 and will not be introduced here.
 
@@ -1838,7 +1822,7 @@ The boot.pdi file can be found in the generated directory
   :height: 0.72153in
 
 SD card boot test
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 1) Format the SD card. It can only be formatted to FAT32 format. Other formats cannot be started.
 
@@ -1867,7 +1851,7 @@ SD card boot test
   :height: 2.99861in
 
 QSPI startup test
-~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~
 
 1) In the Vitis menu Vitis -> Program Flash
 
@@ -1899,21 +1883,21 @@ Select qspi-x8-dual_parallel for Type, and verify the flash after programming is
   :height: 3.25347in
 
 chapter summary
---------
+--------------------
 
 This chapter introduces the classic process of Versal development from the perspectives of both FPGA engineers and software engineers. The main job of FPGA engineers is to build a hardware platform and provide hardware description files xsa to software engineers, who then develop applications based on this. This chapter is a simple example that introduces the collaborative work of FPGA and software engineers. It will also involve joint debugging between PS and PL later, which is more complicated and is also the core part of Versal development.
 
 At the same time, FSBL, startup file production, SD card startup method, QSPI download and startup method are also introduced.
 
-lwip used by PS side Ethernet
-====================
+Chapter 7 lwip used by PS side Ethernet
+=========================================
 
 **The vivado project directory is "ps_hello/vivado"**
 
 .. _Software Engineer Job Content-1:
 
 Software engineer job content
-------------------
+-------------------------------
 
 The following is the responsibility of software engineers.
 
@@ -1922,10 +1906,10 @@ The development board has two channels of Gigabit Ethernet, connected through th
 Although LWIP is a lightweight protocol stack, if you have never used it before, it will be difficult to use it. It is recommended to familiarize yourself with the relevant knowledge of LWIP first.
 
 Vitis program development
--------------
+----------------------------
 
 LWIP library modification
-~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Since the built-in LWIP library can only recognize some phy chips, if the phy chip used by the development board is not within the default support range, the library file must be modified. You can also directly use the modified library to replace the original library.
 
@@ -1948,7 +1932,7 @@ Mainly added get_phy_speed_ksz9031, get_phy_speed_JL2121 to support ksz9031 and 
   :height: 0.19097in
 
 Create an APP project based on the LWIP template
-~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Add lwip213 library to BSP
 
@@ -1980,7 +1964,7 @@ Build platform
   :width: 4.99444in
   :height: 2.95764in
 
-The process will not be described in detail. You can refer to Chapter 6.3.1 of Experience ARM, Bare Metal Output "Hello World"
+The process will not be described in detail. You can refer to Chapter 6 of Experience ARM, Bare Metal Output "Hello World"
 
 5.Build
 
@@ -1991,12 +1975,12 @@ The process will not be described in detail. You can refer to Chapter 6.3.1 of E
 .. _Download Debug-3:
 
 Download debugging
---------
+---------------------
 
 The test environment requires a router that supports dhcp. The development board can automatically obtain an IP address when connected to the router. The experimental host and development board are on the same network and can communicate with each other.
 
 Ethernet test
-~~~~~~~~~~
+~~~~~~~~~~~~~~~~
 
 1) Connect the serial port and open the serial debugging terminal, connect the PS end Ethernet cable to the router, and run the Vitis download program
 
@@ -2029,19 +2013,19 @@ Ethernet test
 .. _Experiment Summary-2:
 
 Experiment summary
---------
+--------------------
 
 Through the experiment, we have a deeper understanding of the development of the Vitis program. This experiment simply explains how to create an LWIP application. LWIP can complete UDP, TCP and other protocols. In subsequent tutorials, we will provide specific applications based on Ethernet, such as cameras. The data is sent to the host computer via Ethernet for display.
 
-Overall engineering and experiments
-==============
+Chapter 8 Overall engineering and experiments
+================================================
 
 This chapter integrates most of the peripherals of the board into the Vivado project.
 
 .. _vivado project creation-3:
 
 Vivado project set up
----------------
+-------------------------
 
 The overall block diagram is as follows. Two MIPI cameras write to DDR4 and LVDS through VDMA.
 The LCD reads image data from DDR4 via VDMA. The specific construction process will not be described. The Vivado project can be restored through TCL scripts.
@@ -2051,10 +2035,10 @@ The LCD reads image data from DDR4 via VDMA. The specific construction process w
   :height: 3.88403in
 
 Vitis experiment
-----------
+--------------------
 
 LVDS LCD display experiment based on VDMA
-~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The main function of this experiment is that ARM makes a color bar in DDR, VDMA reads this space and sends it to LVDS
 LCD display module. Download program:
@@ -2074,7 +2058,7 @@ The displayed results are as follows:
   :height: 3.80694in
 
 MIPI camera acquisition and display experiment
-~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The main function of this experiment is to configure a single or two MIPI cameras and display images on the LCD, which is also implemented through VDMA.
 
@@ -2101,7 +2085,7 @@ display effect
   :height: 3.74514in
 
 MIPI camera binocular acquisition Ethernet transmission experiment
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The LCD display of the MIPI camera was introduced earlier, but in some cases, the video needs to be transmitted to the host computer, and the Ethernet can be used to transmit the data. This chapter uses LWIP udp to transmit the camera data to the host computer.
 
@@ -2111,72 +2095,72 @@ The following introduces part of the content of LWIP. When communicating with th
 
 (1) Query command (5 bytes in total, sent by the host computer through Ethernet)
 
-+--------------+--------------+------------------- ------------------+
-| Number of bytes | 1 | 4 |
-+--------------+--------------+------------------- ------------------+
-| Command information | Header | 0x00020001 |
-+--------------+--------------+------------------- ------------------+
++----------------------+--------------+------------------------------+
+| Number of bytes      | 1            | 4                            |
++----------------------+--------------+------------------------------+
+| Command information  | Header       | 0x00020001                   |
++----------------------+--------------+------------------------------+
 
 (2) Response command (16 bytes in total, sent by the development board through Ethernet)
 
-+----------+----------------------------------------- --------------------------+
-|Number of bytes|Command information|
-+----------+----------------------------------------- --------------------------+
-| 1 | Header|0x01 |
-+----------+----------------------------------------- --------------------------+
-| 4 | 0x00020001 |
-+----------+----------------------------------------- --------------------------+
-| 6 | Board MAC address |
-+----------+----------------------------------------- --------------------------+
-| 4 | Board IP address |
-+----------+----------------------------------------- --------------------------+
-| 1 | 0x02 |
-+----------+----------------------------------------- --------------------------+
++---------------+----------------------------------------------------+
+|Number of bytes|Command information                                 |
++---------------+----------------------------------------------------+
+| 1             | Header|0x01                                        |
++---------------+----------------------------------------------------+
+| 4             | 0x00020001                                         |
++---------------+----------------------------------------------------+
+| 6             | Board MAC address                                  |
++---------------+----------------------------------------------------+
+| 4             | Board IP address                                   |
++---------------+----------------------------------------------------+
+| 1             | 0x02                                               |
++---------------+----------------------------------------------------+
 
-2. Obtain data
+1. Obtain data
 
 (1) Control command (data request sent by the host computer)
 
-+----------+----------------------------------------- --------------------------+
-|Number of bytes|Command information|
-+----------+----------------------------------------- --------------------------+
-| 1 | Header |
-+----------+----------------------------------------- --------------------------+
-| 4 | 0x00020002 |
-+----------+----------------------------------------- --------------------------+
-| 6 | Board MAC address |
-+----------+----------------------------------------- --------------------------+
-| 1 | Camera channel selection, a value of 1 means only turning on camera |
-| | Header 1, the value 2 means opening only camera 2, the value 3 means opening both cameras at the same time |
-+----------+----------------------------------------- --------------------------+
-| 1 | Start signal, 0 means turning off the upper image display, other means turning on the image display |
-+----------+----------------------------------------- --------------------------+
++---------------+-------------------------------------------------------------------------------------------------------------------------+
+|Number of bytes|Command information                                                                                                      |
++---------------+-------------------------------------------------------------------------------------------------------------------------+
+| 1             | Header                                                                                                                  |
++---------------+-------------------------------------------------------------------------------------------------------------------------+
+| 4             | 0x00020002                                                                                                              |
++---------------+-------------------------------------------------------------------------------------------------------------------------+
+| 6             | Board MAC address                                                                                                       |
++---------------+-------------------------------------------------------------------------------------------------------------------------+
+| 1             | Camera channel selection, a value of 1 means only turning on camera                                                     |
+|               | Header 1, the value 2 means opening only camera 2, the value 3 means opening both cameras at the same time              |
++---------------+-------------------------------------------------------------------------------------------------------------------------+
+| 1             | Start signal, 0 means turning off the upper image display, other means turning on the image display                     |
++---------------+-------------------------------------------------------------------------------------------------------------------------+
 
 (2) Response command (sent by development board)
 
-+----------+----------------------------------------- --------------------------+
-|Number of bytes|Command information|
-+----------+----------------------------------------- --------------------------+
-| 1 | Header|0x 01 |
-+----------+----------------------------------------- --------------------------+
-| 3 | 0x 000200 |
-+----------+----------------------------------------- --------------------------+
-| 1 | Channel identification, the value 2 represents camera 1, the value 3 represents camera 2 |
-+----------+----------------------------------------- --------------------------+
-| 3 | Serial number, Ethernet packet sequence number, used for host computer identification |
-+----------+----------------------------------------- --------------------------+
-| N | Image data |
-+----------+----------------------------------------- --------------------------+
++---------------+-----------------------------------------------------------------------------------------------+
+|Number of bytes| Command information                                                                           |
++---------------+-----------------------------------------------------------------------------------------------+
+| 1             | Header|0x 01                                                                                  |
++---------------+-----------------------------------------------------------------------------------------------+
+| 3             | 0x 000200                                                                                     |
++---------------+-----------------------------------------------------------------------------------------------+
+| 1             | Channel identification, the value 2 represents camera 1, the value 3 represents camera 2      |
++---------------+-----------------------------------------------------------------------------------------------+
+| 3             | Serial number, Ethernet packet sequence number, used for host computer identification         |
++---------------+-----------------------------------------------------------------------------------------------+
+| N             | Image data                                                                                    |
++---------------+-----------------------------------------------------------------------------------------------+
 
 Each UDP packet contains a Header, in the first byte, with the following format:
 
-+----------------------+----------------------+-- ------------------+
-| bit | value(0) | value(1) |
-+----------------------+----------------------+-- ------------------+
-| bit 0 | Query or control | Reply |
-+----------------------+----------------------+-- ------------------+
-| bit1~bit7 | Random data | |
-+----------------------+----------------------+-- ------------------+
++----------------------+----------------------+--------------------+
+| bit                  | value(0)             | value(1)           |
++----------------------+----------------------+--------------------+
+| bit 0                | Query or control     | Reply              |
++----------------------+----------------------+--------------------+
+| bit1~bit7            | Random data          |                    |
++----------------------+----------------------+--------------------+
 
 Note: When responding, the upper 7 bits of random data remain unchanged and bit0 is set to 1
 
@@ -2193,7 +2177,7 @@ The workflow is:
 5) Cycle of steps 3 and 4
 
 Experimental steps
-^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 1. If you check the lwip library in vitis
 
