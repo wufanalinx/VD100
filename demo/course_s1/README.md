@@ -1,6 +1,6 @@
 # Course s1 introduction
 The course_s1 provides scripts for pure FPGA and bare-metal projects to quickly restore the project.
-
+## Create Vivado Project
 There are two methods to create vivado project as below:
 ### Create Vivado Project in Vivado tcl console
 1. Open Vivado software and switch to "**auto_create_project**" path with **cd** command and **Enter**
@@ -20,7 +20,7 @@ PAUSE
 ```
 2. Double click bat file in Windows environment
 
-
+## Create Vitis Project
 Here's how to create a Vitis project:
 1. Open the Vitis software by either clicking on Tools --> Launch Vitis IDE in Vivado, or by double-clicking the Vitis icon.
 2. In the Vitis software, click on the menu bar Terminal --> New Terminal.

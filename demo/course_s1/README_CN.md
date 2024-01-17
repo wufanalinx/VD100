@@ -1,6 +1,6 @@
 # Course S1使用介绍
 course_s1为纯FPGA和裸机工程，提供了脚本文件用于快速恢复工程。
- 
+## 创建Vivado工程
 有两种方法创建Vivado工程，如下所示：
 ### 利用Vivado tcl console创建Vivado工程
 1. 打开Vivado软件并且利用**cd**命令进入"**auto_create_project**"目录，并回车
@@ -19,7 +19,7 @@ CALL E:\Xilinx\Vivado\2023.2\bin\vivado.bat -mode batch -source create_project.t
 PAUSE
 ```
 2. 在Windows下双击bat文件即可。
-
+## 创建Vitis工程
 创建Vitis工程方法如下：
 1. 打开Vitis软件，可以在Vivado中点击Tools-->Launch Vitis IDE, 或者双击Vitis图标打开。
 2. 在Vitis软件中，点击菜单栏的Terminal-->New Terminal
