@@ -2,6 +2,8 @@ set_property PACKAGE_PIN F23 [get_ports {lcd_ref_clk_p}]
 set_property IOSTANDARD LVDS15 [get_ports {lcd_ref_clk_p}]
 create_clock -period 5.000 -name lcd_ref_clk_p -waveform {0.000 2.500} [get_ports lcd_ref_clk_p]
 
+set_property DIFF_TERM_ADV TERM_100 [get_ports lcd_ref_clk_p]
+
 set_property PACKAGE_PIN A23 [get_ports {clkout1_p[0]}]
 #set_property PACKAGE_PIN A24 [get_ports {clkout1_n[0]}]
 set_property IOSTANDARD LVDS15 [get_ports {clkout1_p[0]}]
