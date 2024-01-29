@@ -9,11 +9,15 @@
 	│
 	├── documentations  //教程以及说明文档
 	│
-	├── libs  //可能会用到的库文件
+	├── drivers  //可能会用到的第三方驱动程序
+	│
+	├── libs  //可能会用到的第三方库文件
 	│
 	├── petalinux  //petalinux工程
 	│
 	├── sdCardSystemFiles  //开发板从SD卡启动Linux系统所需要的文件
+	│
+	├── tools  //可能会用到的第三方工具
 	│
 	└── vivado  //course_s2中的petalinux工程是基于这个vivado工程制作的。此处不做vivado使用相关的说明，如有需要请参考course_s1。
 	
