@@ -46,3 +46,7 @@
 `petalinux-build && petalinux-package --boot --u-boot --force` 
 
 更加详细的流程请参考 AMD|XILINX 官方文档[UG1144(v2023.2)](https://docs.xilinx.com/r/en-US/ug1144-petalinux-tools-reference-guide)。
+
+---
+---
+- 访问[ALINX官方网站](https://www.alinx.com)以获取更多信息。
