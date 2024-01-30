@@ -9,7 +9,7 @@ config SYSTEM_VERSAL
         bool "VERSAL Configuration"
         help
           VERSAL Configuration for petalinux project.
-          All these config options will be in /media/alinx/nvme4t/petalinux_workspace/fac_2023.2/petalinux_fac_test2/petalinux/project-spec/configs/config
+          All these config options will be in /media/alinx/nvme4t/petalinux_workspace/petalinux_VD100/project-spec/configs/config
 
 
 config SUBSYSTEM_VARIANT_VERSALAI-EDGE
@@ -432,7 +432,7 @@ config SUBSYSTEM_AUTOCONFIG_U__BOOT
 endif
 endmenu
 
-source /media/alinx/nvme4t/petalinux_workspace/fac_2023.2/petalinux_fac_test2/petalinux/project-spec/configs/configs/Kconfig.syshw
+source /media/alinx/nvme4t/petalinux_workspace/petalinux_VD100/project-spec/configs/configs/Kconfig.syshw
 
 choice
 	prompt "Subsystem Architecture"

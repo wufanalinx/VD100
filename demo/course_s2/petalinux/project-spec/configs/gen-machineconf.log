@@ -1,7 +1,7 @@
 [DEBUG] Using xsct from : /home/alinx/Xilinx/petalinux/2023.2/tools/xsct/bin/xsct
 [DEBUG] Using conf/mconf from : /home/alinx/Xilinx/petalinux/2023.2/components/yocto/buildtools/sysroots/x86_64-petalinux-linux/usr/bin/mconf
 [INFO] Silentconfig project
-[DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/media/alinx/nvme4t/petalinux_workspace/fac_2023.2/petalinux_fac_test2/petalinux/project-spec/configs/config conf /media/alinx/nvme4t/petalinux_workspace/fac_2023.2/petalinux_fac_test2/petalinux/project-spec/configs/configs/Kconfig
+[DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/media/alinx/nvme4t/petalinux_workspace/petalinux_VD100/project-spec/configs/config conf /media/alinx/nvme4t/petalinux_workspace/petalinux_VD100/project-spec/configs/configs/Kconfig
 [DEBUG] *
 * PetaLinux System Configuration
 *
@@ -251,11 +251,11 @@ Set number of parallel make -j (PARALLEL_MAKE) (YOCTO_PARALLEL_MAKE) []
 *
 * Add pre-mirror url 
 *
-pre-mirror url path (PRE_MIRROR_URL) [file:///media/alinx/nvme4t/petalinux_workspace/offline_package_2023_2/downloads/] 
+pre-mirror url path (PRE_MIRROR_URL) [file:///media/alinx/nvme4t/petalinux_workspace/offline_package_2023_2/downloads] 
 *
 * Local sstate feeds settings
 *
-local sstate feeds url (YOCTO_LOCAL_SSTATE_FEEDS_URL) [/media/alinx/nvme4t/petalinux_workspace/offline_package_2023_2/aarch64/] 
+local sstate feeds url (YOCTO_LOCAL_SSTATE_FEEDS_URL) [/media/alinx/nvme4t/petalinux_workspace/offline_package_2023_2/aarch64] 
 Enable Network sstate feeds (YOCTO_NETWORK_SSTATE_FEEDS) [N/y/?] 
 Enable BB NO NETWORK (YOCTO_BB_NO_NETWORK) [Y/n/?] 
 Enable Buildtools Extended (YOCTO_BUILDTOOLS_EXTENDED) [N/y/?] 
@@ -264,10 +264,10 @@ Enable Buildtools Extended (YOCTO_BUILDTOOLS_EXTENDED) [N/y/?]
 *
 user layer 0 (USER_LAYER_0) [] 
 #
-# configuration written to /media/alinx/nvme4t/petalinux_workspace/fac_2023.2/petalinux_fac_test2/petalinux/project-spec/configs/config
+# configuration written to /media/alinx/nvme4t/petalinux_workspace/petalinux_VD100/project-spec/configs/config
 #
 [INFO] Silentconfig rootfs
-[DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/media/alinx/nvme4t/petalinux_workspace/fac_2023.2/petalinux_fac_test2/petalinux/project-spec/configs/rootfs_config conf /media/alinx/nvme4t/petalinux_workspace/fac_2023.2/petalinux_fac_test2/petalinux/project-spec/configs/rootfsconfigs/Kconfig
+[DEBUG] Running CMD: yes "" | env KCONFIG_CONFIG=/media/alinx/nvme4t/petalinux_workspace/petalinux_VD100/project-spec/configs/rootfs_config conf /media/alinx/nvme4t/petalinux_workspace/petalinux_VD100/project-spec/configs/rootfsconfigs/Kconfig
 [DEBUG] *
 * Configuration
 *
@@ -3809,5 +3809,5 @@ Create new Groups (CREATE_NEW_GROUPS) [aie;]
 Add Users to Groups (ADD_USERS_TO_GROUPS) [petalinux:audio,video,aie,input;] 
 Add Users to Sudo users (ADD_USERS_TO_SUDOERS) [petalinux] 
 #
-# configuration written to /media/alinx/nvme4t/petalinux_workspace/fac_2023.2/petalinux_fac_test2/petalinux/project-spec/configs/rootfs_config
+# configuration written to /media/alinx/nvme4t/petalinux_workspace/petalinux_VD100/project-spec/configs/rootfs_config
 #

@@ -29,8 +29,9 @@
 `petalinux-build && petalinux-package --boot --u-boot --force`\
 即使是使用离线编译，每个工程的第一次编译都会花上较长的时间。等提示了 **** 和 **** 则表示编译成功，并且打包了BOOT.bin：\
 ![](../images/26.png)
-6. 查看petalinux工程的 *image/linux* 路径，这里就是编译和打包的文件。我们需要其中的BOOT.bin、image.ub、boot.scr以及rootfs.tar.gz这四个文件在开发板上启动LINUX。\
-![](../images/27.png)
+6. 查看petalinux工程的 *images/linux* 路径，这里就是编译和打包的文件。我们需要其中的BOOT.bin、image.ub、boot.scr以及rootfs.tar.gz这四个文件在开发板上启动LINUX。\
+![](../images/27.png) \
+关于如何使用这四个文件制作在开发板上启动Linux的SD卡请参考: [1_快速启动Linux-制作启动开发板linux系统的SD卡.md](./1_快速启动Linux-制作启动开发板linux系统的SD卡.md)。开发板系统起来之后请参考本路径中 **3_在Linux系统中测试开发板外设** 系列文档使用外设。
 
 ---
 ### 通常的PETALINUX使用流程

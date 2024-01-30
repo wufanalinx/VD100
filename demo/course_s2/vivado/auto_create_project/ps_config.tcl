@@ -87,7 +87,7 @@ proc set_ps_config {bd_cell_name} {
       PMC_CRP_HSM1_REF_CTRL_DIVISOR0 {9} \
       PMC_CRP_HSM1_REF_CTRL_FREQMHZ {133.333} \
       PMC_CRP_HSM1_REF_CTRL_SRCSEL {PPLL} \
-      PMC_CRP_I2C_REF_CTRL_ACT_FREQMHZ {100} \
+      PMC_CRP_I2C_REF_CTRL_ACT_FREQMHZ {99.999001} \
       PMC_CRP_I2C_REF_CTRL_DIVISOR0 {12} \
       PMC_CRP_I2C_REF_CTRL_FREQMHZ {100} \
       PMC_CRP_I2C_REF_CTRL_SRCSEL {PPLL} \
@@ -183,7 +183,7 @@ proc set_ps_config {bd_cell_name} {
       PMC_HSM0_CLK_OUT_ENABLE {0} \
       PMC_HSM1_CLK_ENABLE {1} \
       PMC_HSM1_CLK_OUT_ENABLE {0} \
-      PMC_I2CPMC_PERIPHERAL {{ENABLE 0} {IO {PMC_MIO 2 .. 3}}} \
+      PMC_I2CPMC_PERIPHERAL {{ENABLE 1} {IO {PMC_MIO 34 .. 35}}} \
       PMC_MIO0 {{AUX_IO 0} {DIRECTION out} {DRIVE_STRENGTH 12mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 1} {SLEW fast} {USAGE Reserved}} \
       PMC_MIO1 {{AUX_IO 0} {DIRECTION inout} {DRIVE_STRENGTH 12mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 1} {SLEW fast} {USAGE Reserved}} \
       PMC_MIO10 {{AUX_IO 0} {DIRECTION inout} {DRIVE_STRENGTH 12mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 1} {SLEW fast} {USAGE Reserved}} \
@@ -212,8 +212,8 @@ proc set_ps_config {bd_cell_name} {
       PMC_MIO31 {{AUX_IO 0} {DIRECTION inout} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Reserved}} \
       PMC_MIO32 {{AUX_IO 0} {DIRECTION inout} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Reserved}} \
       PMC_MIO33 {{AUX_IO 0} {DIRECTION inout} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Reserved}} \
-      PMC_MIO34 {{AUX_IO 0} {DIRECTION in} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Unassigned}} \
-      PMC_MIO35 {{AUX_IO 0} {DIRECTION in} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Unassigned}} \
+      PMC_MIO34 {{AUX_IO 0} {DIRECTION inout} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Reserved}} \
+      PMC_MIO35 {{AUX_IO 0} {DIRECTION inout} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Reserved}} \
       PMC_MIO36 {{AUX_IO 0} {DIRECTION in} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Unassigned}} \
       PMC_MIO37 {{AUX_IO 0} {DIRECTION in} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Unassigned}} \
       PMC_MIO38 {{AUX_IO 0} {DIRECTION out} {DRIVE_STRENGTH 8mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 0} {SLEW slow} {USAGE Reserved}} \
@@ -238,9 +238,9 @@ proc set_ps_config {bd_cell_name} {
       PMC_MIO9 {{AUX_IO 0} {DIRECTION inout} {DRIVE_STRENGTH 12mA} {OUTPUT_DATA default} {PULL pullup} {SCHMITT 1} {SLEW fast} {USAGE Reserved}} \
       PMC_MIO_EN_FOR_PL_PCIE {0} \
       PMC_MIO_TREE_PERIPHERALS {QSPI#QSPI#QSPI#QSPI#QSPI#QSPI#Loopback Clk#QSPI#QSPI#QSPI#QSPI#QSPI#QSPI#USB 2.0#USB 2.0#USB 2.0#USB 2.0#USB 2.0#USB 2.0#USB 2.0#USB 2.0#USB 2.0#USB 2.0#USB 2.0#USB 2.0#USB\
-2.0#SD1/eMMC1##SD1#SD1/eMMC1#SD1/eMMC1#SD1/eMMC1#SD1/eMMC1#SD1/eMMC1#####SD0/eMMC0##SD0/eMMC0#SD0/eMMC0#SD0/eMMC#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#####UART\
+2.0#SD1/eMMC1##SD1#SD1/eMMC1#SD1/eMMC1#SD1/eMMC1#SD1/eMMC1#SD1/eMMC1#pmc_i2c#pmc_i2c###SD0/eMMC0##SD0/eMMC0#SD0/eMMC0#SD0/eMMC#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#SD0/eMMC0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#Gem0#####UART\
 0#UART 0#####CANFD0#CANFD0#GPIO 2#GPIO 2} \
-      PMC_MIO_TREE_SIGNALS {qspi0_clk#qspi0_io[1]#qspi0_io[2]#qspi0_io[3]#qspi0_io[0]#qspi0_cs_b#qspi_lpbk#qspi1_cs_b#qspi1_io[0]#qspi1_io[1]#qspi1_io[2]#qspi1_io[3]#qspi1_clk#usb2phy_reset#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_tx_data[2]#ulpi_tx_data[3]#ulpi_clk#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#ulpi_dir#ulpi_stp#ulpi_nxt#clk##detect#cmd#data[0]#data[1]#data[2]#data[3]#####clk##cmd#data[0]#data[1]#data[2]#data[3]#sel/data[4]#dir_cmd/data[5]#dir0/data[6]#dir1/data[7]#buspwr/rst#gem0_mdc#gem0_mdio#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#####rxd#txd#####phy_rx#phy_tx#gpio_2_pin[24]#gpio_2_pin[25]}\
+      PMC_MIO_TREE_SIGNALS {qspi0_clk#qspi0_io[1]#qspi0_io[2]#qspi0_io[3]#qspi0_io[0]#qspi0_cs_b#qspi_lpbk#qspi1_cs_b#qspi1_io[0]#qspi1_io[1]#qspi1_io[2]#qspi1_io[3]#qspi1_clk#usb2phy_reset#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_tx_data[2]#ulpi_tx_data[3]#ulpi_clk#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#ulpi_dir#ulpi_stp#ulpi_nxt#clk##detect#cmd#data[0]#data[1]#data[2]#data[3]#scl#sda###clk##cmd#data[0]#data[1]#data[2]#data[3]#sel/data[4]#dir_cmd/data[5]#dir0/data[6]#dir1/data[7]#buspwr/rst#gem0_mdc#gem0_mdio#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#####rxd#txd#####phy_rx#phy_tx#gpio_2_pin[24]#gpio_2_pin[25]}\
 \
       PMC_NOC_PMC_ADDR_WIDTH {64} \
       PMC_NOC_PMC_DATA_WIDTH {128} \
@@ -726,7 +726,7 @@ proc set_ps_config {bd_cell_name} {
       PS_PCIE_EP_RESET1_IO {None} \
       PS_PCIE_EP_RESET2_IO {None} \
       PS_PCIE_PERIPHERAL_ENABLE {0} \
-      PS_PCIE_RESET {ENABLE 0} \
+      PS_PCIE_RESET {{ENABLE 0}} \
       PS_PCIE_ROOT_RESET1_IO {None} \
       PS_PCIE_ROOT_RESET1_IO_DIR {output} \
       PS_PCIE_ROOT_RESET1_POLARITY {Active Low} \
@@ -1149,6 +1149,6 @@ proc set_ps_config {bd_cell_name} {
       USE_UART0_IN_DEVICE_BOOT {0} \
       preset {None} \
     } \
-    CONFIG.PS_PMC_CONFIG_APPLIED {0} \
+    CONFIG.PS_PMC_CONFIG_APPLIED {1} \
   ] [get_bd_cells $bd_cell_name]
 }

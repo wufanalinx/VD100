@@ -52,7 +52,8 @@ create_bd_cell -type ip -vlnv xilinx.com:ip:versal_cips:3.4 versal_cips_0
 
 source $projpath/auto_create_project/ps_config.tcl
 set_ps_config versal_cips_0
-
+add_files -fileset sources_1  -copy_to $projpath/$projName.srcs/sources_1/new -force -quiet [glob -nocomplain $src_dir/hdl/*.v]
+update_compile_order -fileset sources_1
 
 source $tclpath/pl_config.tcl
 

@@ -263,12 +263,12 @@ CONFIG_YOCTO_PARALLEL_MAKE=""
 #
 # Add pre-mirror url 
 #
-CONFIG_PRE_MIRROR_URL="http://petalinux.xilinx.com/sswreleases/rel-v${PETALINUX_MAJOR_VER}/downloads"
+CONFIG_PRE_MIRROR_URL="file:///media/alinx/nvme4t/petalinux_workspace/offline_package_2023_2/downloads"
 
 #
 # Local sstate feeds settings
 #
-CONFIG_YOCTO_NETWORK_SSTATE_FEEDS_URL="http://petalinux.xilinx.com/sswreleases/rel-v${PETALINUX_MAJOR_VER}/aarch64/sstate-cache"
+CONFIG_YOCTO_LOCAL_SSTATE_FEEDS_URL="/media/alinx/nvme4t/petalinux_workspace/offline_package_2023_2/aarch64"
 # CONFIG_YOCTO_NETWORK_SSTATE_FEEDS is not set
 CONFIG_YOCTO_BB_NO_NETWORK=y
 # CONFIG_YOCTO_BUILDTOOLS_EXTENDED is not set

@@ -222,9 +222,9 @@ proc create_hier_cell_lcd_lvds_group { parentCell nameHier } {
   set clkout1_p [ create_bd_port -dir O -from 0 -to 0 clkout1_p ]
   set dataout1_n_1 [ create_bd_port -dir O -from 0 -to 0 dataout1_n_1 ]
   set dataout1_n_3 [ create_bd_port -dir O -from 0 -to 0 dataout1_n_3 ]
-  set phy_reset_n [ create_bd_port -dir O -from 0 -to 0 -type rst phy_reset_n ]
   set lcd_en [ create_bd_port -dir O -from 0 -to 0 -type data lcd_en ]
   set lcd_sync [ create_bd_port -dir O -from 0 -to 0 -type data lcd_sync ]
+  set phy_reset_n [ create_bd_port -dir O -from 0 -to 0 -type rst phy_reset_n ]
   
   # Create instance: axi_noc_0, and set properties
   set axi_noc_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_noc:1.0 axi_noc_0 ]
@@ -574,6 +574,19 @@ proc create_hier_cell_lcd_lvds_group { parentCell nameHier } {
   ] $cam1_rst_gpio
 
 
+  # Create instance: rgmii_reset_0, and set properties
+  set block_name rgmii_reset
+  set block_cell_name rgmii_reset_0
+  if { [catch {set rgmii_reset_0 [create_bd_cell -type module -reference $block_name $block_cell_name] } errmsg] } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2095 -severity "ERROR" "Unable to add referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   } elseif { $rgmii_reset_0 eq "" } {
+     catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
+     return 1
+   }
+
+
+
   # Create interface connections
   connect_bd_intf_net -intf_net CLK_IN_D_0_1 [get_bd_intf_ports sys] [get_bd_intf_pins util_ds_buf_0/CLK_IN_D]
   connect_bd_intf_net -intf_net CLK_IN_D_0_2 [get_bd_intf_ports lcd_ref] [get_bd_intf_pins lcd_lvds_group/lcd_ref]
@@ -636,15 +649,15 @@ proc create_hier_cell_lcd_lvds_group { parentCell nameHier } {
   connect_bd_net -net axi_vdma_1_s2mm_introut [get_bd_pins axi_vdma_1/s2mm_introut] [get_bd_pins versal_cips_0/pl_ps_irq2]
   connect_bd_net -net axi_vdma_2_s2mm_introut [get_bd_pins axi_vdma_2/s2mm_introut] [get_bd_pins versal_cips_0/pl_ps_irq3]
   connect_bd_net -net cam1_rst_gpio_gpio_io_o [get_bd_pins cam1_rst_gpio/gpio_io_o] [get_bd_pins v_demosaic_1/ap_rst_n]
-  connect_bd_net -net clk_wizard_0_clk_out1 [get_bd_pins clk_wizard_0/clk_out1] [get_bd_pins gmii_to_rgmii_0/clkin] [get_bd_pins proc_sys_reset_0/slowest_sync_clk]
+  connect_bd_net -net clk_wizard_0_clk_out1 [get_bd_pins clk_wizard_0/clk_out1] [get_bd_pins gmii_to_rgmii_0/clkin] [get_bd_pins proc_sys_reset_0/slowest_sync_clk] [get_bd_pins rgmii_reset_0/clk]
   connect_bd_net -net clk_wizard_0_clk_out2 [get_bd_pins clk_wizard_0/clk_out2] [get_bd_pins mipi_csi2_rx_subsyst_0/dphy_clk_200M] [get_bd_pins mipi_csi2_rx_subsyst_1/dphy_clk_200M]
   connect_bd_net -net clk_wizard_0_clk_out3 [get_bd_pins clk_wizard_0/clk_out3] [get_bd_pins rst_clk_wizard_0_150M/slowest_sync_clk] [get_bd_pins v_axi4s_vid_out_0/aclk] [get_bd_pins v_tc_0/s_axi_aclk] [get_bd_pins axi_noc_0/aclk6] [get_bd_pins axi_smc/aclk] [get_bd_pins axi_vdma_0/s_axi_lite_aclk] [get_bd_pins axi_vdma_0/m_axi_mm2s_aclk] [get_bd_pins axi_vdma_0/m_axis_mm2s_aclk] [get_bd_pins axi_vdma_1/s_axi_lite_aclk] [get_bd_pins axi_vdma_1/m_axi_s2mm_aclk] [get_bd_pins axi_vdma_1/s_axis_s2mm_aclk] [get_bd_pins mipi_csi2_rx_subsyst_0/video_aclk] [get_bd_pins versal_cips_0/m_axi_lpd_aclk] [get_bd_pins mipi_csi2_rx_subsyst_1/video_aclk] [get_bd_pins axi_vdma_2/s_axi_lite_aclk] [get_bd_pins axi_vdma_2/m_axi_s2mm_aclk] [get_bd_pins axi_vdma_2/s_axis_s2mm_aclk] [get_bd_pins v_demosaic_0/ap_clk] [get_bd_pins v_demosaic_1/ap_clk] [get_bd_pins axis_subset_converter_0/aclk] [get_bd_pins axis_subset_converter_1/aclk] [get_bd_pins mipi_csi2_rx_subsyst_1/lite_aclk] [get_bd_pins mipi_csi2_rx_subsyst_0/lite_aclk] [get_bd_pins led_gpio/s_axi_aclk] [get_bd_pins key_gpio/s_axi_aclk] [get_bd_pins cam0_rst_gpio/s_axi_aclk] [get_bd_pins cam1_rst_gpio/s_axi_aclk]
   connect_bd_net -net key_gpio_ip2intc_irpt [get_bd_pins key_gpio/ip2intc_irpt] [get_bd_pins versal_cips_0/pl_ps_irq6]
   connect_bd_net -net lcd_clk_1 [get_bd_pins lcd_lvds_group/lcd_pclk] [get_bd_pins v_axi4s_vid_out_0/vid_io_out_clk] [get_bd_pins v_tc_0/clk]
   connect_bd_net -net mipi_csi2_rx_subsyst_0_clkoutphy_out [get_bd_pins mipi_csi2_rx_subsyst_0/clkoutphy_out] [get_bd_pins mipi_csi2_rx_subsyst_1/clkoutphy_in]
   connect_bd_net -net mipi_csi2_rx_subsyst_0_pll_lock_out [get_bd_pins mipi_csi2_rx_subsyst_0/pll_lock_out] [get_bd_pins mipi_csi2_rx_subsyst_1/pll_lock_in]
-  connect_bd_net -net proc_sys_reset_0_peripheral_aresetn [get_bd_pins proc_sys_reset_0/peripheral_aresetn] [get_bd_ports phy_reset_n]
   connect_bd_net -net proc_sys_reset_0_peripheral_reset [get_bd_pins proc_sys_reset_0/peripheral_reset] [get_bd_pins gmii_to_rgmii_0/tx_reset] [get_bd_pins gmii_to_rgmii_0/rx_reset]
+  connect_bd_net -net rgmii_reset_0_rstn_out [get_bd_pins rgmii_reset_0/rstn_out] [get_bd_ports phy_reset_n]
   connect_bd_net -net rst_clk_wizard_0_150M_peripheral_aresetn [get_bd_pins rst_clk_wizard_0_150M/peripheral_aresetn] [get_bd_pins v_tc_0/s_axi_aresetn] [get_bd_pins axi_smc/aresetn] [get_bd_pins axi_vdma_0/axi_resetn] [get_bd_pins mipi_csi2_rx_subsyst_0/video_aresetn] [get_bd_pins mipi_csi2_rx_subsyst_1/video_aresetn] [get_bd_pins mipi_csi2_rx_subsyst_1/lite_aresetn] [get_bd_pins mipi_csi2_rx_subsyst_0/lite_aresetn] [get_bd_pins led_gpio/s_axi_aresetn] [get_bd_pins key_gpio/s_axi_aresetn] [get_bd_pins cam0_rst_gpio/s_axi_aresetn] [get_bd_pins cam1_rst_gpio/s_axi_aresetn] [get_bd_pins axi_vdma_1/axi_resetn] [get_bd_pins axis_subset_converter_0/aresetn] [get_bd_pins axi_vdma_2/axi_resetn] [get_bd_pins axis_subset_converter_1/aresetn]
   connect_bd_net -net util_ds_buf_0_IBUF_OUT [get_bd_pins util_ds_buf_0/IBUF_OUT] [get_bd_pins axi_noc_0/sys_clk0] [get_bd_pins clk_wizard_0/clk_in1]
   connect_bd_net -net v_axi4s_vid_out_0_sof_state_out [get_bd_pins v_axi4s_vid_out_0/sof_state_out] [get_bd_pins v_tc_0/sof_state]
@@ -657,7 +670,7 @@ proc create_hier_cell_lcd_lvds_group { parentCell nameHier } {
   connect_bd_net -net versal_cips_0_fpd_cci_noc_axi2_clk [get_bd_pins versal_cips_0/fpd_cci_noc_axi2_clk] [get_bd_pins axi_noc_0/aclk2]
   connect_bd_net -net versal_cips_0_fpd_cci_noc_axi3_clk [get_bd_pins versal_cips_0/fpd_cci_noc_axi3_clk] [get_bd_pins axi_noc_0/aclk3]
   connect_bd_net -net versal_cips_0_lpd_axi_noc_clk [get_bd_pins versal_cips_0/lpd_axi_noc_clk] [get_bd_pins axi_noc_0/aclk4]
-  connect_bd_net -net versal_cips_0_pl0_resetn [get_bd_pins versal_cips_0/pl0_resetn] [get_bd_pins rst_clk_wizard_0_150M/ext_reset_in] [get_bd_pins proc_sys_reset_0/ext_reset_in]
+  connect_bd_net -net versal_cips_0_pl0_resetn [get_bd_pins versal_cips_0/pl0_resetn] [get_bd_pins rst_clk_wizard_0_150M/ext_reset_in] [get_bd_pins proc_sys_reset_0/ext_reset_in] [get_bd_pins rgmii_reset_0/rstn_in]
   connect_bd_net -net versal_cips_0_pmc_axi_noc_axi0_clk [get_bd_pins versal_cips_0/pmc_axi_noc_axi0_clk] [get_bd_pins axi_noc_0/aclk5]
   connect_bd_net -net xlconstant_0_dout [get_bd_pins xlconstant_0/dout] [get_bd_ports lcd_en]
   connect_bd_net -net xlconstant_1_dout [get_bd_pins xlconstant_1/dout] [get_bd_ports lcd_sync]
@@ -686,4 +699,3 @@ proc create_hier_cell_lcd_lvds_group { parentCell nameHier } {
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces axi_vdma_0/Data_MM2S] [get_bd_addr_segs axi_noc_0/S06_AXI/C0_DDR_LOW0] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces axi_vdma_1/Data_S2MM] [get_bd_addr_segs axi_noc_0/S08_AXI/C2_DDR_LOW0] -force
   assign_bd_address -offset 0x00000000 -range 0x80000000 -target_address_space [get_bd_addr_spaces axi_vdma_2/Data_S2MM] [get_bd_addr_segs axi_noc_0/S07_AXI/C1_DDR_LOW0] -force
-
