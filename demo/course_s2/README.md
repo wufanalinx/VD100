@@ -1,3 +1,4 @@
+[English README](./README_EN.md)
 # 在ALINX-Versal开发板 ***VD100*** 上使用LINUX
 ## 本路径中的内容 
 	│
