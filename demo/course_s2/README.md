@@ -21,7 +21,7 @@
 	│
 	└── vivado  //course_s2中的petalinux工程是基于这个vivado工程制作的。此处不做vivado使用相关的说明，如有需要请参考course_s1。
 	
-- 请从[documentations](./linux/documentations)开始course_s2的学习。
+- 请从[documentations](./documentations)开始course_s2的学习。
 
 ---
 ---
